@@ -44,7 +44,7 @@ def register_callbacks_dashboard_plots(app):
             
         '''
         if not stored_df:
-            return "Sube un archivo para generar la gráfica."
+            return 'Sube un archivo para generar la gráfica.'
 
         try:
             df = pd.DataFrame(stored_df)

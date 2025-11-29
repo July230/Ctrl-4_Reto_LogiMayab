@@ -4,7 +4,6 @@ from layouts.sidebar import sidebar
 from callbacks.callbacks_master import register_callbacks_all
 
 app = Dash(__name__, 
-           use_pages=True, # Aplicación multipágina
            external_stylesheets=[dbc.themes.BOOTSTRAP],
            suppress_callback_exceptions=True) # Permite callbacks en páginas no cargadas
 
