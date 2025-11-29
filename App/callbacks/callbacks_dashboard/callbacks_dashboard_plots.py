@@ -1,7 +1,6 @@
 from dash.dependencies import Input, Output, State
 import pandas as pd
 import plotly.express as px
-from utils.file_loader import load_upload_file
 
 def register_callbacks_dashboard_plots(app):
     '''
