@@ -1,6 +1,6 @@
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
-from models.file_loader import load_upload_file
+from utils.file_loader import load_upload_file
 
 def register_callbacks_upload(app):
     '''

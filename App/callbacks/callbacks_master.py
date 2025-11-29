@@ -1,5 +1,5 @@
 from .callbacks_upload import register_callbacks_upload
-from .callbachs_dashboard import register_callbacks_dashboard_graph
+from .callbacks_dashboard import register_callbacks_dashboard_graph
 
 def register_callbacks_all(app):
     '''
