@@ -2,7 +2,6 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 
 layout = dbc.Container([
-    dcc.Store(id='stored-data', storage_type='memory'),
     dbc.Row([
         dbc.Col([
             html.H1("Dashboard interactivo", style={'textAlign': 'center'})
