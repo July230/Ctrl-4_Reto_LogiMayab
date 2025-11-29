@@ -1,17 +1,19 @@
-from dash import Dash, dcc
-import dash
+from dash import Dash, dcc, html
 import dash_bootstrap_components as dbc
-from layouts.dashboard import layout
+from layouts.sidebar import sidebar
 from callbacks.callbacks_master import register_callbacks_all
 
 app = Dash(__name__, 
-           use_pages=True,
-           external_stylesheets=[dbc.themes.BOOTSTRAP])
+           use_pages=True, # Aplicación multipágina
+           external_stylesheets=[dbc.themes.BOOTSTRAP],
+           suppress_callback_exceptions=True) # Permite callbacks en páginas no cargadas
 
 # Store global para que todas las paginas usen el mismo archivo cargado
 app.layout = dbc.Container([
     dcc.Store(id='stored-data', storage_type='memory'),
-    dash.page_container,
+    dcc.Location(id='url', refresh=False), # Componente para manejar la URL
+    sidebar,
+    html.Div(id='page-content', style={'margin-left': '20rem', 'padding': '2rem'})
 ], fluid=True)
 
 register_callbacks_all(app)
