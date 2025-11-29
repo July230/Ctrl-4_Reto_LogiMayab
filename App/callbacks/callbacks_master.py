@@ -16,8 +16,6 @@ def register_callbacks_all(app):
     --------
         None
     '''
-    register_callbacks_dashboard_loader(app)
-    register_callbacks_dashboard_plots(app)
     @app.callback(
         Output('page-content', 'children'),
         Input('url', 'pathname')
@@ -40,3 +38,5 @@ def register_callbacks_all(app):
             return dashboard_layout
         else:
             return '404 - Página no encontrada'
+    register_callbacks_dashboard_loader(app)
+    register_callbacks_dashboard_plots(app)

@@ -1,6 +1,7 @@
 from dash.dependencies import Input, Output, State
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 def register_callbacks_dashboard_plots(app):
     '''
@@ -44,7 +45,20 @@ def register_callbacks_dashboard_plots(app):
             
         '''
         if not stored_df:
-            return 'Sube un archivo para generar la gráfica.'
+            # Devuelve una figura vacía con un mensaje en el centro.
+            fig = go.Figure()
+            fig.update_layout(
+                xaxis={'visible': False},
+                yaxis={'visible': False},
+                annotations=[{
+                    'text': 'Sube un archivo para generar la gráfica.',
+                    'xref': 'paper',
+                    'yref': 'paper',
+                    'showarrow': False,
+                    'font': {'size': 16}
+                }]
+            )
+            return fig
 
         try:
             df = pd.DataFrame(stored_df)
@@ -54,4 +68,17 @@ def register_callbacks_dashboard_plots(app):
             return fig
 
         except Exception as e:
-            return f'Error generando gráfica: {e}'
+            # Devuelve una figura con el mensaje de error para no romper el componente Graph
+            fig = go.Figure()
+            fig.update_layout(
+                xaxis={'visible': False},
+                yaxis={'visible': False},
+                annotations=[{
+                    'text': f'Error generando gráfica: {e}',
+                    'xref': 'paper',
+                    'yref': 'paper',
+                    'showarrow': False,
+                    'font': {'size': 12, 'color': 'red'}
+                }]
+            )
+            return fig
