@@ -4,12 +4,32 @@ import io
 
 def load_upload_file(contents, filename):
     '''
-    Decodifica el archivo subido desde dcc.Upload y lo retorna como DataFrame.
-    Argumentos:
-        contents: cadena base64 del archivo
-        filename: nombre del archivo original
-    Retorna:
-        DataFrame 
+    Decodifica y carga un archivo subido desde un componente dcc.Upload
+    y lo convierte en un DataFrame de pandas.
+
+    Esta función recibe el contenido base64 del archivo enviado por Dash
+    y lo decodifica. Dependiendo de la extensión del archivo, lo procesa
+    como CSV o Excel y retorna un DataFrame.
+
+    Parameters
+    ----------
+    contents : str
+        Cadena codificada en base64 generada por dcc.Upload. Contiene
+        metadatos y el contenido real del archivo, separados por una coma.
+        Ejemplo: `"data:application/vnd.ms-excel;base64,XXXXX..."`.
+    filename : str 
+        Nombre original del archivo subido. Utilizado para determinar el tipo
+        de archivo según su extensión.
+    Retorns
+    -------
+    pandas.DataFrame
+        DataFrame resultante de decodificar y leer el archivo.
+
+    Raises
+    ------
+    ValueError
+        Si el contenido es None o si la extensión del archivo no es válida.
+
     '''
     if contents is None:
         raise ValueError("No se recibió contenido")

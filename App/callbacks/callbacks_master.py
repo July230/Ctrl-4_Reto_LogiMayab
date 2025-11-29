@@ -1,13 +1,18 @@
-from .callbacks_dashboard import register_callbacks_dashboard_graph
+from .callbacks_dashboard.callbacks_dashboard_loader import register_callbacks_dashboard_loader
+from .callbacks_dashboard.callbacks_dashboard_plots import register_callbacks_dashboard_plots
 
 def register_callbacks_all(app):
     '''
     Registra todos los callbacks de la aplicación Dash.
 
-    Args:
-        app (Dash): Instancia principal de la aplicación Dash donde se registran
+    Parameters
+    -----
+        app : dash.Dash
+            Instancia principal de la aplicación Dash donde se registran
             todos los callbacks.
     Returns:
+    --------
         None
     '''
-    register_callbacks_dashboard_graph(app)
+    register_callbacks_dashboard_loader(app)
+    register_callbacks_dashboard_plots(app)
