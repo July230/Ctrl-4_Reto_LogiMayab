@@ -11,5 +11,4 @@ def register_callbacks_all(app):
     Returns:
         None
     '''
-    register_callbacks_upload(app)
     register_callbacks_dashboard_graph(app)
