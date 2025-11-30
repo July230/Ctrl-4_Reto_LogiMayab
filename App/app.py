@@ -9,7 +9,7 @@ app = Dash(__name__,
 
 # Store global para que todas las paginas usen el mismo archivo cargado
 app.layout = dbc.Container([
-    dcc.Store(id='stored-data', storage_type='memory'),
+    dcc.Store(id='stored-data', storage_type='memory'), # Almacena datos cargados
     dcc.Location(id='url', refresh=False), # Componente para manejar la URL
     sidebar,
     html.Div(id='page-content', style={'margin-left': '20rem', 'padding': '2rem'})

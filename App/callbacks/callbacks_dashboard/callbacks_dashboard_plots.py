@@ -1,4 +1,5 @@
 from dash.dependencies import Input, Output, State
+from dash.exceptions import PreventUpdate
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -45,21 +46,8 @@ def register_callbacks_dashboard_plots(app):
             En caso de que no existan datos o ocurra un error, devuelve un mensaje.
             
         '''
-        if not df_json:
-            # Devuelve una figura vacía con un mensaje en el centro.
-            fig = go.Figure()
-            fig.update_layout(
-                xaxis={'visible': False},
-                yaxis={'visible': False},
-                annotations=[{
-                    'text': 'Sube un archivo para generar la gráfica.',
-                    'xref': 'paper',
-                    'yref': 'paper',
-                    'showarrow': False,
-                    'font': {'size': 16}
-                }]
-            )
-            return fig
+        if df_json is None:
+            raise PreventUpdate
 
         try:
             # Usar io.StringIO para evitar deprecation warning al leer JSON
