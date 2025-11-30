@@ -2,6 +2,7 @@ from dash.dependencies import Input, Output, State
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import io
 
 def register_callbacks_dashboard_plots(app):
     '''
@@ -24,7 +25,7 @@ def register_callbacks_dashboard_plots(app):
         Input('stored-data', 'data'),
         prevent_initial_call=True
     )
-    def update_plot(stored_df):
+    def update_plot(df_json):
         '''
         Genera y actualiza la figura principal del dashboard a partir de los datos cargados.
 
@@ -33,8 +34,8 @@ def register_callbacks_dashboard_plots(app):
 
         Parameters
         ----------
-        stored_df : list[dict] or None
-            Datos previamente almacenados en memoria por `dcc.Store`.
+        df_json : JSON or None
+            Datos previamente almacenados como JSON en memoria por dcc.Store.
             Deben representar un DataFrame serializado en formato records.
             Si es None, no se genera ningún gráfico.
         Returns
@@ -44,7 +45,7 @@ def register_callbacks_dashboard_plots(app):
             En caso de que no existan datos o ocurra un error, devuelve un mensaje.
             
         '''
-        if not stored_df:
+        if not df_json:
             # Devuelve una figura vacía con un mensaje en el centro.
             fig = go.Figure()
             fig.update_layout(
@@ -61,7 +62,8 @@ def register_callbacks_dashboard_plots(app):
             return fig
 
         try:
-            df = pd.DataFrame(stored_df)
+            # Usar io.StringIO para evitar deprecation warning al leer JSON
+            df = pd.read_json(io.StringIO(df_json), orient='records')
 
             fig = px.box(df, x='Importe', title='Boxplot de los importes periodo Enero-Noviembre')
 

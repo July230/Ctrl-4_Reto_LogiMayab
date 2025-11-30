@@ -1,5 +1,6 @@
 from dash.dependencies import Input, Output, State
 import pandas as pd
+from dash import callback_context
 from utils.file_loader import load_upload_file
 
 def register_callbacks_dashboard_loader(app):
@@ -29,7 +30,6 @@ def register_callbacks_dashboard_loader(app):
     )
     def load_file(contents, filename):
         '''
-        Carga, procesa y limpia el archivo subido por el usuario.
         Esta función recibe los datos codificados en base64 desde dcc.Upload, 
         los decodifica mediante load_upload_file, convierte la columna "Importe" 
         a formato numérico y almacena el resultado en un formato serializado apto 
@@ -47,8 +47,8 @@ def register_callbacks_dashboard_loader(app):
         -------
         tuple
             (data_serialized, message)
-            data_serialized : list[dict] or None
-                El DataFrame procesado convertido a formato records para ser almacenado.
+            data_serialized : JSON or None
+                El DataFrame procesado convertido a formato json para ser almacenado.
                 Devuelve None si ocurre un error o si el archivo carece de estructura válida.
 
             message : str
@@ -75,7 +75,7 @@ def register_callbacks_dashboard_loader(app):
             else:
                 return None, 'La columna "Importe" no existe.'
 
-            return df.to_dict('records'), f'Archivo cargado: {filename}'
+            return df.to_json(date_format='iso', orient='records'), f'Archivo cargado: {filename}, filas: {len(df)}'
 
         except Exception as e:
             return None, f'Error: {e}'
