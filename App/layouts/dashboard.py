@@ -1,7 +1,7 @@
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 
-layout = dbc.Container([
+dashboard_content = dbc.Container([
     dbc.Row([
         dbc.Col([
             html.H1("Dashboard interactivo", style={'textAlign': 'center'})

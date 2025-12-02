@@ -1,6 +1,6 @@
 from dash.dependencies import Input, Output, State
 import pandas as pd
-from dash import callback_context
+from dash.exceptions import PreventUpdate
 from utils.file_loader import load_upload_file
 
 def register_callbacks_dashboard_loader(app):
@@ -26,9 +26,10 @@ def register_callbacks_dashboard_loader(app):
         Output('uploaded-file-info', 'children'),
         Input('upload-data', 'contents'),
         State('upload-data', 'filename'),
+        State('stored-data', 'data'),
         prevent_initial_call=True
     )
-    def load_file(contents, filename):
+    def load_file(contents, filename, stored_data):
         '''
         Esta función recibe los datos codificados en base64 desde dcc.Upload, 
         los decodifica mediante load_upload_file, convierte la columna "Importe" 
@@ -42,7 +43,10 @@ def register_callbacks_dashboard_loader(app):
             Puede ser None si no se ha cargado ningún archivo.
         filename : str or None 
             Nombre del archivo original, utilizado para determinar su extensión.
-        Será None si el componente no proporciona nombre.
+            Será None si el componente no proporciona nombre.
+        stored_data : JSON or None
+            Datos previamente almacenados en dcc.Store en formato JSON. 
+            Puede ser None si no hay datos previos.
         Returns
         -------
         tuple
@@ -57,8 +61,14 @@ def register_callbacks_dashboard_loader(app):
             
         '''
 
+        # Si NO hay un archivo nuevo y SÍ hay datos previos, no tocar nada
+        if not contents and stored_data is not None:
+            print('No hay nuevo archivo, pero sí datos previos. Manteniendo estado.')
+            raise PreventUpdate
+        
+        # Si no hay archivo y tampoco había datos previos, pedir archivo
         if not contents:
-            return None, 'Sube un archivo para iniciar.'
+            return None, 'Ningún archivo cargado.'
 
         try:
             df = load_upload_file(contents, filename)

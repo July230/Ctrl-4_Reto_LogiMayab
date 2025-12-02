@@ -24,7 +24,7 @@ def register_callbacks_dashboard_plots(app):
     @app.callback(
         Output('plot-1', 'figure'),
         Input('stored-data', 'data'),
-        prevent_initial_call=True
+        prevent_initial_call=False
     )
     def update_plot(df_json):
         '''
@@ -47,7 +47,20 @@ def register_callbacks_dashboard_plots(app):
             
         '''
         if df_json is None:
-            raise PreventUpdate
+            # Retorna una figura vacía con mensaje en lugar de PreventUpdate
+            fig = go.Figure()
+            fig.update_layout(
+                xaxis={'visible': False},
+                yaxis={'visible': False},
+                annotations=[{
+                    'text': 'Sube un archivo para generar la gráfica.',
+                    'xref': 'paper',
+                    'yref': 'paper',
+                    'showarrow': False,
+                    'font': {'size': 16}
+                }]
+            )
+            return fig
 
         try:
             # Usar io.StringIO para evitar deprecation warning al leer JSON

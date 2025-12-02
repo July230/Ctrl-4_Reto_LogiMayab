@@ -1,11 +1,11 @@
 from dash import html
 from dash.dependencies import Input, Output
-from layouts.dashboard import layout as dashboard_layout
+from layouts.dashboard import dashboard_content
 
 
 def register_callbacks_router(app):
     '''
-    Registra el callback encargado de renderizar `page-content` según la URL.
+    Registra los callbacks encargados de renderizar el contenido según la URL.
 
     Separar el router en su propio módulo respeta SRP (Single Responsibility)
     y facilita pruebas y mantenimiento.
@@ -29,10 +29,8 @@ def register_callbacks_router(app):
         dash.html.Div
             Contenido correspondiente a la página solicitada.
         '''
-        if not pathname or pathname == '/':
-            return dashboard_layout
-        if pathname == '/dashboard':
-            return dashboard_layout
+        if not pathname or pathname == '/' or pathname == '/dashboard':
+            return dashboard_content
         if pathname == '/otra-pagina':
             return html.Div([
                 html.H1('Otra página', style={'textAlign': 'center'}),
