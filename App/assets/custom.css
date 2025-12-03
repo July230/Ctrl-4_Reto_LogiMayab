@@ -1,0 +1,73 @@
+/* Collapsible sidebar: collapsed by default, expands on hover */
+.sidebar {
+  width: 4rem;
+  padding: 1rem 0.5rem;
+  background-color: #f8f9fa;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  transition: width 0.18s ease-in-out;
+  box-shadow: 2px 0 6px rgba(0,0,0,0.03);
+}
+
+.sidebar:hover {
+  width: 18rem;
+}
+
+/* Hide title and lead text when collapsed; show when hovered */
+.sidebar .sidebar-title,
+.sidebar .lead,
+.sidebar hr {
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+  transition: opacity 0.12s ease-in-out, max-height 0.12s ease-in-out;
+}
+
+.sidebar:hover .sidebar-title,
+.sidebar:hover .lead,
+.sidebar:hover hr {
+  opacity: 1;
+  max-height: 200px;
+  margin: 0.5rem 1rem;
+}
+
+/* Nav links keep single-line and show overflow ellipsis when collapsed */
+.sidebar .nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* When collapsed, center nav items horizontally */
+.sidebar .nav-link {
+  text-align: left;
+}
+
+/* Page content shifts depending on sidebar width */
+.page-content {
+  margin-left: 4rem;
+  padding: 2rem;
+  transition: margin-left 0.18s ease-in-out;
+}
+
+/* When sidebar hovered, push the page content */
+.sidebar:hover + .page-content {
+  margin-left: 18rem;
+}
+
+/* Small cosmetic tweaks */
+.sidebar .sidebar-title {
+  font-size: 1.25rem;
+  padding-left: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  /* On small screens collapse fully and overlay */
+  .sidebar { position: fixed; z-index: 1030; }
+  .sidebar:hover + .page-content { margin-left: 4rem; }
+}
