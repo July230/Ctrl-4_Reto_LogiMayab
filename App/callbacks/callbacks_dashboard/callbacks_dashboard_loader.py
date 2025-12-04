@@ -118,6 +118,8 @@ def register_callbacks_dashboard_loader(app):
                                    'IVA',
                                    'Viaje Docto',
                                    'Operador',
+                                   'Documentos',
+                                   'UUID CP',
                                    'Nro Ope']
 
             df_cleaned = df.drop(columns=columns_to_drop)
