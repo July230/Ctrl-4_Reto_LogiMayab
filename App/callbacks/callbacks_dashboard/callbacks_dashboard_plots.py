@@ -67,9 +67,33 @@ def register_callbacks_dashboard_plots(app):
             # Usar io.StringIO para evitar deprecation warning al leer JSON
             df = pd.read_json(io.StringIO(df_json), orient='records')
 
-            fig = px.bar(df, x='Ruta', title='Top 10 rutas más frecuentes',
-                         category_orders={'Ruta': df['Ruta'].value_counts().nlargest(10).index.tolist()})
-            fig.update_layout(xaxis_title='Ruta', yaxis_title='Frecuencia')
+            if 'Ruta' not in df.columns:
+                # Si no existe la columna, informar al usuario
+                fig = go.Figure()
+                fig.update_layout(
+                    xaxis={'visible': False},
+                    yaxis={'visible': False},
+                    annotations=[{
+                        'text': 'La columna "Ruta" no existe en los datos.',
+                        'xref': 'paper',
+                        'yref': 'paper',
+                        'showarrow': False,
+                        'font': {'size': 14, 'color': 'red'}
+                    }]
+                )
+                return fig
+
+            # Calcular frecuencias y quedarnos con las 10 más frecuentes
+            top_routes = df['Ruta'].value_counts().nlargest(10).reset_index()
+            top_routes.columns = ['Ruta', 'Frecuencia']
+
+            # Asegurar orden descendente en la gráfica
+            top_routes = top_routes.sort_values('Frecuencia', ascending=True)
+
+            fig = px.bar(top_routes, x='Frecuencia', y='Ruta', orientation='h',
+                         title='Top 10 rutas más frecuentes',
+                         labels={'Frecuencia': 'Frecuencia', 'Ruta': 'Ruta'})
+            fig.update_layout(yaxis={'categoryorder':'total ascending'})
 
             return fig
 

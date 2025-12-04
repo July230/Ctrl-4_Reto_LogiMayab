@@ -93,10 +93,10 @@ def register_callbacks_dashboard_loader(app):
             # Eliminar duplicados
             df_sindupes = df.drop_duplicates(keep='first')
 
-            df_limpio = df_sindupes.copy()
+            df_cleaned = df_sindupes.copy()
 
             # Eliminar columnas innecesarias
-            columnas_a_eliminar = ['Nombre Cliente',
+            columns_to_drop = ['Nombre Cliente',
                                    'Diferencia',
                                    'Liquidación',
                                    'Dolly',
@@ -120,15 +120,15 @@ def register_callbacks_dashboard_loader(app):
                                    'Operador',
                                    'Nro Ope']
 
-            df_limpio = df.drop(columns=columnas_a_eliminar)
+            df_cleaned = df.drop(columns=columns_to_drop)
 
             # Imputación de valores faltantes
-            df_limpio['Tractocamión'] = df_limpio['Tractocamión'].fillna('Desconocido')
+            df_cleaned['Tractocamión'] = df_cleaned['Tractocamión'].fillna('Desconocido')
 
             # Transformación de la columna 'Total'
-            df_limpio['Total_log'] = np.log1p(df_limpio['Total'])
+            df_cleaned['Total_log'] = np.log1p(df_cleaned['Total'])
 
-            return df.to_json(date_format='iso', orient='records'), f'Archivo cargado: {filename}, filas: {len(df)}'
+            return df_cleaned.to_json(date_format='iso', orient='records'), f'Archivo cargado: {filename}, filas: {len(df)}'
 
         except Exception as e:
             return None, f'Error: {e}'
