@@ -1,9 +1,7 @@
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
-import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
-from empty_fig import empty_fig
+from .empty_fig import empty_fig
 
 def plot_frequent_routes(df):
     '''

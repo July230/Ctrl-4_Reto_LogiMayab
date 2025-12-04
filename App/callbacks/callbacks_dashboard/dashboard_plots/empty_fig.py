@@ -19,7 +19,7 @@ def empty_fig(message):
         showarrow=False,
         font=dict(size=20),
         x=0.5, y=0.5,
-        align="center"
+        align='center'
     )
     fig.update_layout(
         xaxis=dict(visible=False),

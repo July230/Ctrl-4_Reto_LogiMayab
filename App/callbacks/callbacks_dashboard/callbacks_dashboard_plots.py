@@ -1,9 +1,9 @@
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
 import io
+from .dashboard_plots.empty_fig import empty_fig
+from .dashboard_plots.plot_routes import plot_frequent_routes
 
 def register_callbacks_dashboard_plots(app):
     '''
@@ -26,7 +26,7 @@ def register_callbacks_dashboard_plots(app):
         Input('stored-data', 'data'),
         prevent_initial_call=False
     )
-    def update_plot(df_json):
+    def update_plots(df_json):
         '''
         Genera y actualiza la figura principal del dashboard a partir de los datos cargados.
 
@@ -48,69 +48,20 @@ def register_callbacks_dashboard_plots(app):
             En caso de que no existan datos o ocurra un error, devuelve un mensaje.
             
         '''
+        # Si no hay datos cargados, retorna una figura vacía con mensaje
         if df_json is None:
-            # Retorna una figura vacía con mensaje en lugar de PreventUpdate
-            fig = go.Figure()
-            fig.update_layout(
-                xaxis={'visible': False},
-                yaxis={'visible': False},
-                annotations=[{
-                    'text': 'Sube un archivo para generar la gráfica.',
-                    'xref': 'paper',
-                    'yref': 'paper',
-                    'showarrow': False,
-                    'font': {'size': 16}
-                }]
-            )
-            return fig
+            return empty_fig('Sube un archivo para generar la gráfica.')
 
         try:
-            print("Generando gráfica con los datos cargados...")
             # Usar io.StringIO para evitar deprecation warning al leer JSON
             df = pd.read_json(io.StringIO(df_json), orient='records')
 
-            if 'Ruta' not in df.columns:
-                # Si no existe la columna, informar al usuario
-                fig = go.Figure()
-                fig.update_layout(
-                    xaxis={'visible': False},
-                    yaxis={'visible': False},
-                    annotations=[{
-                        'text': 'La columna "Ruta" no existe en los datos.',
-                        'xref': 'paper',
-                        'yref': 'paper',
-                        'showarrow': False,
-                        'font': {'size': 14, 'color': 'red'}
-                    }]
-                )
-                return fig
+            # Llamar a la función que genera la gráfica de las top 10 rutas más frecuentes
+            fig1 = plot_frequent_routes(df)
 
-            # Calcular frecuencias y quedarnos con las 10 más frecuentes
-            top_routes = df['Ruta'].value_counts().nlargest(10).reset_index()
-            top_routes.columns = ['Ruta', 'Frecuencia']
-
-            # Asegurar orden descendente en la gráfica
-            top_routes = top_routes.sort_values('Frecuencia', ascending=True)
-
-            fig = px.bar(top_routes, x='Frecuencia', y='Ruta', orientation='h',
-                         title='Top 10 rutas más frecuentes',
-                         labels={'Frecuencia': 'Frecuencia', 'Ruta': 'Ruta'})
-            fig.update_layout(yaxis={'categoryorder':'total ascending'})
-
-            return fig
+            return fig1
 
         except Exception as e:
             # Devuelve una figura con el mensaje de error para no romper el componente Graph
-            fig = go.Figure()
-            fig.update_layout(
-                xaxis={'visible': False},
-                yaxis={'visible': False},
-                annotations=[{
-                    'text': f'Error generando gráfica: {e}',
-                    'xref': 'paper',
-                    'yref': 'paper',
-                    'showarrow': False,
-                    'font': {'size': 12, 'color': 'red'}
-                }]
-            )
-            return fig
+            fig_error = empty_fig(f'Error al generar la gráfica: {e}')
+            return fig_error
