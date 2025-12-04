@@ -1,7 +1,8 @@
 from dash.dependencies import Input, Output, State
-import pandas as pd
 from dash.exceptions import PreventUpdate
 from utils.file_loader import load_upload_file
+import pandas as pd
+import numpy as np
 
 def register_callbacks_dashboard_loader(app):
     '''
@@ -73,17 +74,59 @@ def register_callbacks_dashboard_loader(app):
         try:
             df = load_upload_file(contents, filename)
 
-            # Limpieza "Importe"
-            if 'Importe' in df.columns:
-                df['Importe'] = (
-                    df['Importe'].astype(str)
-                    .str.replace('$', '', regex=False)
-                    .str.replace(',', '', regex=False)
-                    .str.strip()
-                )
-                df['Importe'] = pd.to_numeric(df['Importe'], errors='coerce')
-            else:
-                return None, 'La columna "Importe" no existe.'
+            # Limpieza de variables
+            df['SubTotal'] = df['SubTotal'].replace(r'[\$, ]', '', regex=True).astype(float)
+            df['IVA'] = df['IVA'].replace(r'[\$, ]', '', regex=True).astype(float)
+            df['Retención'] = df['Retención'].replace(r'[\$, ]', '', regex=True).astype(float)
+            df['Total'] = df['Total'].replace(r'[\$, ]', '', regex=True).astype(float)
+            df['Liquidación'] = df['Liquidación'].replace(r'[\$, ]', '', regex=True).astype(float)
+            df['Peso Kgs'] = df['Peso Kgs'].str.replace(',', '', regex=False).astype(float)
+            df['Peso Descarga Kgs'] = df['Peso Descarga Kgs'].str.replace(',', '', regex=False).astype(float)
+            df['Diferencia'] = df['Diferencia'].str.replace(',', '', regex=False).astype(float)
+            df['Fecha'] = pd.to_datetime(df['Fecha'],format='mixed',dayfirst=False)
+            df['Fecha.1'] = pd.to_datetime(df['Fecha.1'],format='mixed',dayfirst=False)
+            df['Fecha Vencimiento'] = df['Fecha Vencimiento'].str.replace(r'/\d{4}$', '/2025', regex=True)
+            df['Fecha Vencimiento'] = pd.to_datetime(df['Fecha Vencimiento'],format='mixed',dayfirst=False)
+
+            df = df.rename(columns={'Numero':'Cliente'})
+
+            # Eliminar duplicados
+            df_sindupes = df.drop_duplicates(keep='first')
+
+            df_limpio = df_sindupes.copy()
+
+            # Eliminar columnas innecesarias
+            columnas_a_eliminar = ['Nombre Cliente',
+                                   'Diferencia',
+                                   'Liquidación',
+                                   'Dolly',
+                                   'Remolque 2',
+                                   'Operador',
+                                   'Peso Kgs',
+                                   'Peso Descarga Kgs',
+                                   'Moneda',
+                                   'Viaje Docto',
+                                   'Fecha.1',
+                                   'Fecha Vencimiento',
+                                   'Remolque 1',
+                                   'Fecha Salida',
+                                   'Fecha Llegada',
+                                   'Estatus de Viaje',
+                                   'Retención',
+                                   'Factura',
+                                   'SubTotal',
+                                   'IVA',
+                                   'Viaje Docto',
+                                   'Operador',
+                                   'Nro Ope']
+
+            df_limpio = df.drop(columns=columnas_a_eliminar)
+
+            # Imputación de valores faltantes
+            df_limpio['Tractocamión'] = df_limpio['Tractocamión'].fillna('Desconocido')
+
+            # Transformación de la columna 'Total'
+            df_limpio['Total_log'] = np.log1p(df_limpio['Total'])
 
             return df.to_json(date_format='iso', orient='records'), f'Archivo cargado: {filename}, filas: {len(df)}'
 

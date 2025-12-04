@@ -63,10 +63,13 @@ def register_callbacks_dashboard_plots(app):
             return fig
 
         try:
+            print("Generando gráfica con los datos cargados...")
             # Usar io.StringIO para evitar deprecation warning al leer JSON
             df = pd.read_json(io.StringIO(df_json), orient='records')
 
-            fig = px.box(df, x='Importe', title='Boxplot de los importes periodo Enero-Noviembre')
+            fig = px.bar(df, x='Ruta', title='Top 10 rutas más frecuentes',
+                         category_orders={'Ruta': df['Ruta'].value_counts().nlargest(10).index.tolist()})
+            fig.update_layout(xaxis_title='Ruta', yaxis_title='Frecuencia')
 
             return fig
 
