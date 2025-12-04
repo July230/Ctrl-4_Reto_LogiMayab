@@ -2,6 +2,7 @@ from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 import pandas as pd
 import io
+from config.color_palettes import get_palette
 from .dashboard_plots.empty_fig import empty_fig
 from .dashboard_plots.plot_routes import plot_frequent_routes
 from .dashboard_plots.plot_trips_trucks import plot_trips_per_truck
@@ -67,10 +68,13 @@ def register_callbacks_dashboard_plots(app):
             # Reconvertir columnas de fecha que se perdieron al serializar a JSON
             df['Fecha'] = pd.to_datetime(df['Fecha'],format='mixed',dayfirst=False)
 
+            # Obtener la paleta de colores (se puede cambiar a la que quieras)
+            color_palette = get_palette('PROFESSIONAL')
+
             # Llamar a la función que genera la gráfica de las top 10 rutas más frecuentes
-            fig1 = plot_frequent_routes(df)
-            fig2 = plot_trips_per_truck(df)
-            fig3 = plot_volatile_routes(df)
+            fig1 = plot_frequent_routes(df, color_palette)
+            fig2 = plot_trips_per_truck(df, color_palette)
+            fig3 = plot_volatile_routes(df, color_palette)
 
             return fig1, fig2, fig3
 

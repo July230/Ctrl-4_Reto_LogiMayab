@@ -4,7 +4,7 @@ import plotly.express as px
 import datetime as dt
 from .empty_fig import empty_fig
 
-def plot_volatile_routes(df):
+def plot_volatile_routes(df, color_palette=None):
     '''
     Genera la gráfica de las top 10 rutas más volátiles.
     Hace los cálculos necesarios para determinar la volatilidad de las rutas
@@ -13,6 +13,9 @@ def plot_volatile_routes(df):
     ----------
     df : pandas.DataFrame
         DataFrame con los datos cargados y limpios.
+    color_palette : list, optional
+        Lista de colores en formato hex para usar en la gráfica.
+        Si es None, usa los colores por defecto de Plotly.
     Returns
     -------
     plotly.graph_objects.Figure
@@ -49,7 +52,8 @@ def plot_volatile_routes(df):
         x='Coeficiente de Variación',
         y='Ruta',
         orientation='h',
-        title='Top 10 rutas más volátiles'
+        title='Top 10 rutas más volátiles',
+        color_discrete_sequence=[color_palette[2]] if color_palette and len(color_palette) > 2 else None
     )
     fig.update_layout(yaxis={'categoryorder': 'total ascending'})
 

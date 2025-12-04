@@ -3,13 +3,16 @@ from dash.exceptions import PreventUpdate
 import plotly.express as px
 from .empty_fig import empty_fig
 
-def plot_frequent_routes(df):
+def plot_frequent_routes(df, color_palette=None):
     '''
     Genera la gráfica de las top 10 rutas más frecuentes.
     Parameters
     ----------
     df : pandas.DataFrame
         DataFrame con los datos cargados y limpios.
+    color_palette : list, optional
+        Lista de colores en formato hex para usar en la gráfica.
+        Si es None, usa los colores por defecto de Plotly.
     Returns
     -------
     plotly.graph_objects.Figure
@@ -27,7 +30,8 @@ def plot_frequent_routes(df):
         x='Frecuencia',
         y='Ruta',
         orientation='h',
-        title='Top 10 rutas más frecuentes'
+        title='Top 10 rutas más frecuentes',
+        color_discrete_sequence=[color_palette[0]] if color_palette else None
     )
     fig.update_layout(yaxis={'categoryorder': 'total ascending'})
 
