@@ -6,6 +6,7 @@ from .empty_fig import empty_fig
 def plot_trips_per_truck(df, color_palette=None):
     '''
     Genera la gráfica del número de viajes por tractocamión.
+
     Parameters
     ----------
     df : pandas.DataFrame
@@ -13,6 +14,7 @@ def plot_trips_per_truck(df, color_palette=None):
     color_palette : list, optional
         Lista de colores en formato hex para usar en la gráfica.
         Si es None, usa los colores por defecto de Plotly.
+
     Returns
     -------
     plotly.graph_objects.Figure

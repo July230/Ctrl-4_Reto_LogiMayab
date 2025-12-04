@@ -20,6 +20,7 @@ def register_callbacks_dashboard_plots(app):
     app : dash.Dash
         Instancia principal de la aplicación Dash donde se registran
         todos los callbacks.
+
     Returns
     -------
     None
@@ -46,6 +47,7 @@ def register_callbacks_dashboard_plots(app):
             Datos previamente almacenados como JSON en memoria por dcc.Store.
             Deben representar un DataFrame serializado en formato records.
             Si es None, no se genera ningún gráfico.
+
         Returns
         --------
         plotly.graph_objects.Figure or str

@@ -9,6 +9,7 @@ def plot_volatile_routes(df, color_palette=None):
     Genera la gráfica de las top 10 rutas más volátiles.
     Hace los cálculos necesarios para determinar la volatilidad de las rutas
     basándose en el coeficiente de variación de los viajes mensuales.
+
     Parameters
     ----------
     df : pandas.DataFrame
@@ -16,6 +17,7 @@ def plot_volatile_routes(df, color_palette=None):
     color_palette : list, optional
         Lista de colores en formato hex para usar en la gráfica.
         Si es None, usa los colores por defecto de Plotly.
+
     Returns
     -------
     plotly.graph_objects.Figure

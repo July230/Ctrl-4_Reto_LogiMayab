@@ -3,10 +3,12 @@ import plotly.graph_objects as go
 def empty_fig(message):
     '''
     Genera una figura vacía con un mensaje centralizado.
+
     Parameters
     ----------
     message : str
         Mensaje a mostrar en la figura vacía.
+
     Returns
     -------
     plotly.graph_objects.Figure

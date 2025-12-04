@@ -7,13 +7,14 @@ def register_callbacks_all(app):
     Registra todos los callbacks de la aplicación Dash.
 
     Parameters
-    -----
-        app : dash.Dash
-            Instancia principal de la aplicación Dash donde se registran
-            todos los callbacks.
-    Returns:
-    --------
-        None
+    ----------
+    app : dash.Dash
+        Instancia principal de la aplicación Dash donde se registran
+        todos los callbacks.
+
+    Returns
+    -------
+    None
     '''
     register_callbacks_dashboard_loader(app)
     register_callbacks_dashboard_plots(app)

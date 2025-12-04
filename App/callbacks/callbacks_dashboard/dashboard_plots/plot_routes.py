@@ -6,6 +6,7 @@ from .empty_fig import empty_fig
 def plot_frequent_routes(df, color_palette=None):
     '''
     Genera la gráfica de las top 10 rutas más frecuentes.
+
     Parameters
     ----------
     df : pandas.DataFrame
@@ -13,6 +14,7 @@ def plot_frequent_routes(df, color_palette=None):
     color_palette : list, optional
         Lista de colores en formato hex para usar en la gráfica.
         Si es None, usa los colores por defecto de Plotly.
+   
     Returns
     -------
     plotly.graph_objects.Figure

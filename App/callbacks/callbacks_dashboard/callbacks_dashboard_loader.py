@@ -17,6 +17,7 @@ def register_callbacks_dashboard_loader(app):
     app : dash.Dash
         Instancia principal de la aplicación Dash donde se registran
         todos los callbacks.
+
     Returns
     -------
     None
@@ -48,6 +49,7 @@ def register_callbacks_dashboard_loader(app):
         stored_data : JSON or None
             Datos previamente almacenados en dcc.Store en formato JSON. 
             Puede ser None si no hay datos previos.
+
         Returns
         -------
         tuple

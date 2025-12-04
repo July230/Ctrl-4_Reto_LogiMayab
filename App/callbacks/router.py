@@ -9,8 +9,17 @@ def register_callbacks_router(app):
 
     Separar el router en su propio módulo respeta SRP (Single Responsibility)
     y facilita pruebas y mantenimiento.
-    '''
 
+    Parameters
+    ----------
+    app : dash.Dash
+        Instancia principal de la aplicación Dash donde se registran
+        todos los callbacks.
+
+    Returns
+    -------
+    None
+    '''
     @app.callback(
         Output('page-content', 'children'),
         Input('url', 'pathname')
