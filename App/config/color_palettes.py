@@ -89,8 +89,36 @@ DEFAULT = [
     '#FECB52',  # Amarillo
 ]
 
+LOGIMAYAB = [
+    '#2e3242', # Azul oscuro
+    '#fd5e2c', # Naranja
+    '#ffffff', # Blanco
+    '#eaeaea', # Gris claro
+    '#eb7d28', # Naranja claro
+    '#667a8a', # Azul grisáceo
+    '#000000', # Negro
+]
 
-def get_palette(name: str = 'PROFESSIONAL'):
+NARANJA_TRIADA = [
+    '#fd5e2c', 
+    '#2cfd5e', 
+    '#5e2cfd',
+]
+
+NARANJA_TRIADA_ASCENDENTE = [
+    '#fd5e2c', 
+    '#f38700', 
+    '#dbad00', 
+    '#b3d000', 
+    '#73ef34', 
+    '#00f389', 
+    '#00d9e7', 
+    '#00b7ff', 
+    '#0088ff', 
+    '#5e2cfd'
+]
+
+def get_palette(name: str = 'DEFAULT'):
     '''
     Retorna una paleta de colores por nombre.
     
@@ -113,4 +141,4 @@ def get_palette(name: str = 'PROFESSIONAL'):
         'CORPORATE': CORPORATE,
         'DEFAULT': DEFAULT,
     }
-    return palettes.get(name, PROFESSIONAL)
+    return palettes.get(name, DEFAULT)

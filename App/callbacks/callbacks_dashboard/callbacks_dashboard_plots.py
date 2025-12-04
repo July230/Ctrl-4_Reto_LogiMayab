@@ -69,7 +69,7 @@ def register_callbacks_dashboard_plots(app):
             df['Fecha'] = pd.to_datetime(df['Fecha'],format='mixed',dayfirst=False)
 
             # Obtener la paleta de colores (se puede cambiar a la que quieras)
-            color_palette = get_palette('PROFESSIONAL')
+            color_palette = get_palette('NARANJA_TRIADA_ASCENDENTE')
 
             # Llamar a la función que genera la gráfica de las top 10 rutas más frecuentes
             fig1 = plot_frequent_routes(df, color_palette)
