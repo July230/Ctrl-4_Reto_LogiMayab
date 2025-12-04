@@ -31,8 +31,9 @@ def plot_frequent_routes(df, color_palette=None):
         y='Ruta',
         orientation='h',
         title='Top 10 rutas más frecuentes',
-        color_discrete_sequence=[color_palette[0]] if color_palette else None
+        color='Ruta',
+        color_discrete_sequence=color_palette if color_palette else None
     )
-    fig.update_layout(yaxis={'categoryorder': 'total ascending'})
+    fig.update_layout(yaxis={'categoryorder': 'total ascending'}, showlegend=False)
 
     return fig

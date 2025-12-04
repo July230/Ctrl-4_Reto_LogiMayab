@@ -140,5 +140,8 @@ def get_palette(name: str = 'DEFAULT'):
         'DARK': DARK,
         'CORPORATE': CORPORATE,
         'DEFAULT': DEFAULT,
+        'LOGIMAYAB': LOGIMAYAB,
+        'NARANJA_TRIADA': NARANJA_TRIADA,
+        'NARANJA_TRIADA_ASCENDENTE': NARANJA_TRIADA_ASCENDENTE,
     }
     return palettes.get(name, DEFAULT)

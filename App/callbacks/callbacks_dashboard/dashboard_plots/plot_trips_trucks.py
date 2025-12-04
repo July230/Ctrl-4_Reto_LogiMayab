@@ -31,7 +31,9 @@ def plot_trips_per_truck(df, color_palette=None):
         y='Tractocamión',
         orientation='h',
         title='Cantidad de viajes por tracto',
-        color_discrete_sequence=[color_palette[1]] if color_palette and len(color_palette) > 1 else None
+        color='Tractocamión',
+        color_discrete_sequence=color_palette if color_palette else None
     )
+    fig.update_layout(showlegend=False)
 
     return fig
