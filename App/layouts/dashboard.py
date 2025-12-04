@@ -34,5 +34,11 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dcc.Graph(id='plot-1')
         ], width=12)
+    ]),
+
+    dbc.Row([
+        dbc.Col([
+            dcc.Graph(id='plot-2')
+        ], width=12)
     ])
 ])

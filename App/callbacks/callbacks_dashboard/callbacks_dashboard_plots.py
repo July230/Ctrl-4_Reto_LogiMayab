@@ -4,6 +4,7 @@ import pandas as pd
 import io
 from .dashboard_plots.empty_fig import empty_fig
 from .dashboard_plots.plot_routes import plot_frequent_routes
+from .dashboard_plots.plot_trips_trucks import plot_trips_per_truck
 
 def register_callbacks_dashboard_plots(app):
     '''
@@ -23,6 +24,7 @@ def register_callbacks_dashboard_plots(app):
     '''
     @app.callback(
         Output('plot-1', 'figure'),
+        Output('plot-2', 'figure'),
         Input('stored-data', 'data'),
         prevent_initial_call=False
     )
@@ -50,7 +52,10 @@ def register_callbacks_dashboard_plots(app):
         '''
         # Si no hay datos cargados, retorna una figura vacía con mensaje
         if df_json is None:
-            return empty_fig('Sube un archivo para generar la gráfica.')
+            return (
+                empty_fig('Sube un archivo para generar la gráfica.'),
+                empty_fig('Sube un archivo para generar la gráfica.')
+            )
 
         try:
             # Usar io.StringIO para evitar deprecation warning al leer JSON
@@ -58,10 +63,11 @@ def register_callbacks_dashboard_plots(app):
 
             # Llamar a la función que genera la gráfica de las top 10 rutas más frecuentes
             fig1 = plot_frequent_routes(df)
+            fig2 = plot_trips_per_truck(df)
 
-            return fig1
+            return fig1, fig2
 
         except Exception as e:
             # Devuelve una figura con el mensaje de error para no romper el componente Graph
             fig_error = empty_fig(f'Error al generar la gráfica: {e}')
-            return fig_error
+            return (fig_error, fig_error)
