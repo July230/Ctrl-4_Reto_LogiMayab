@@ -3,9 +3,9 @@ import dash_bootstrap_components as dbc
 
 sidebar = html.Div(
     [
-        html.H2("Menú", className="sidebar-title"),
+        html.H2('Menú', className='sidebar-title'),
         html.Hr(),
-        html.P("A simple sidebar layout with navigation links", className="lead"),
+        html.P('A simple sidebar layout with navigation links', className='lead'),
         dbc.Nav(
             [
                 dbc.NavLink(
@@ -19,8 +19,8 @@ sidebar = html.Div(
                 ),
                 dbc.NavLink(
                     [
-                        html.I(className="bi bi-file-earmark", style={"margin-right": "0.5rem"}),
-                        html.Span("Otra Página")
+                        html.I(className='bi bi-file-earmark', style={'margin-right': '0.5rem'}),
+                        html.Span('Otra Página')
                     ],
                     href='/otra-pagina',
                     active='exact',
