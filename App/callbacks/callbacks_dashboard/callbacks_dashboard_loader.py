@@ -33,8 +33,8 @@ def register_callbacks_dashboard_loader(app):
     def load_file(contents, filename, stored_data):
         '''
         Esta función recibe los datos codificados en base64 desde dcc.Upload, 
-        los decodifica mediante load_upload_file, convierte la columna "Importe" 
-        a formato numérico y almacena el resultado en un formato serializado apto 
+        los decodifica mediante load_upload_file. Hace una limpieza de tipos de datos,
+        columnas y duplicados, y finalmente almacena el resultado en un formato serializado apto 
         para dcc.Store.
 
         Parameters
