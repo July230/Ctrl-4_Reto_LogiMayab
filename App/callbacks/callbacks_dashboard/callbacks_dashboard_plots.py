@@ -31,7 +31,9 @@ def register_callbacks_dashboard_plots(app):
         Genera y actualiza la figura principal del dashboard a partir de los datos cargados.
 
         Toma la información almacenada en dcc.Store (formato dict) y la convierte en un 
-        DataFrame de pandas. Luego genera un boxplot de la columna 'Importe'.
+        DataFrame de pandas.
+
+        Llama a funciones auxiliares para crear cada gráfico específico.
 
         Parameters
         ----------
