@@ -19,6 +19,7 @@
 
 /* Hide title and lead text when collapsed; show when hovered */
 .sidebar .sidebar-title,
+.sidebar .sidebar-logo,
 .sidebar .lead,
 .sidebar hr {
   opacity: 0;
@@ -29,11 +30,21 @@
 }
 
 .sidebar:hover .sidebar-title,
+.sidebar:hover .sidebar-logo,
 .sidebar:hover .lead,
 .sidebar:hover hr {
   opacity: 1;
   max-height: 200px;
   margin: 0.5rem 1rem;
+}
+
+/* Logo sizing */
+.sidebar .sidebar-logo {
+  width: 35px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  align-items: left;
 }
 
 /* Nav links styling */
