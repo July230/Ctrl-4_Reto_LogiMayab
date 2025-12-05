@@ -1,11 +1,38 @@
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 
+tooltip = html.Div(
+    [
+        html.I(
+            id='tooltip-target',
+            className='bi bi-info-circle-fill me-2', 
+            style={'margin-right': '0.5rem'},
+        ),
+        dbc.Tooltip(
+            'Sube un archivo haciendo click o arrastrando aquí.',
+            target='tooltip-target',
+            style={'font-family': 'MuseoModerno'},
+        ),
+    ]
+)
+
 dashboard_content = dbc.Container([
     dbc.Row([
         dbc.Col([
-            html.H1('Dashboard', style={'textAlign': 'left', 'font-family': 'MuseoModerno'}),
-        ], width=12)
+            html.H1(
+                'Dashboard', 
+                style={'textAlign': 'left', 'font-family': 'MuseoModerno'}
+            ),
+            tooltip
+        ],
+        style={
+            'display': 'flex',
+            'alignItems': 'center',
+            'gap': '0.5rem',
+            'justifyContent': 'left',
+            'width': '100%'
+        }
+        ),
     ]),
 
     dbc.Row([
@@ -30,7 +57,7 @@ dashboard_content = dbc.Container([
                 }
             ),
             html.Br()
-        ], width=12)
+        ])
     ]),
 
     dbc.Row([
