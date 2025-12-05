@@ -25,7 +25,8 @@ def register_callbacks_dashboard_loader(app):
     '''
     @app.callback(
         Output('stored-data', 'data'),
-        Output('uploaded-file-info', 'children'),
+        Output('upload-data', 'style'),
+        Output('upload-box-content', 'children'),
         Input('upload-data', 'contents'),
         State('upload-data', 'filename'),
         State('stored-data', 'data'),
@@ -64,14 +65,32 @@ def register_callbacks_dashboard_loader(app):
             
         '''
 
-        # Si NO hay un archivo nuevo y SÍ hay datos previos, no tocar nada
+        # Estilos por defecto del upload (coinciden con el layout: flexbox, padding)
+        default_style = {
+            'width': '100%',
+            'minHeight': '60px',
+            'borderWidth': '1px',
+            'borderStyle': 'dashed',
+            'textAlign': 'center',
+            'display': 'flex',
+            'flexDirection': 'column',
+            'justifyContent': 'center',
+            'alignItems': 'center',
+            'padding': '0.5rem'
+        }
+
+        # Si NO hay un archivo nuevo y SÍ hay datos previos, mantener indicación sin procesar
         if not contents and stored_data is not None:
             print('No hay nuevo archivo, pero sí datos previos. Manteniendo estado.')
-            raise PreventUpdate
-        
+            # Mantener estilo verde para indicar que ya hay un archivo cargado en sesión
+            success_style = default_style.copy()
+            success_style.update({'backgroundColor': '#2cfd5e', 'color': '#ffffff'})
+            # Mostrar mensaje dentro del upload box
+            return stored_data, success_style, 'Archivo cargado (sesión)'
+
         # Si no hay archivo y tampoco había datos previos, pedir archivo
         if not contents:
-            return None, 'Ningún archivo cargado.'
+            return None, default_style, 'Arrastra o selecciona un archivo'
 
         try:
             df = load_upload_file(contents, filename)
@@ -132,7 +151,13 @@ def register_callbacks_dashboard_loader(app):
             # Transformación de la columna 'Total'
             df_cleaned['Total_log'] = np.log1p(df_cleaned['Total'])
 
-            return df_cleaned.to_json(date_format='iso', orient='records'), f'Archivo cargado: {filename}, filas: {len(df)}'
+            success_style = default_style.copy()
+            success_style.update({'backgroundColor': '#2cfd5e', 'color': '#ffffff'})
+
+            # Show the file info in the upload box
+            return df_cleaned.to_json(date_format='iso', orient='records'), success_style, f'Archivo cargado: {filename}, filas: {len(df)}'
 
         except Exception as e:
-            return None, f'Error: {e}'
+            error_style = default_style.copy()
+            error_style.update({'backgroundColor': '#f8d7da', 'color': '#721c24'})
+            return None, error_style, f'Error: {e}'

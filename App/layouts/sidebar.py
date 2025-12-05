@@ -3,9 +3,7 @@ import dash_bootstrap_components as dbc
 
 sidebar = html.Div(
     [
-        html.H2('Menú', className='sidebar-title'),
-        html.Hr(),
-        html.P('A simple sidebar layout with navigation links', className='lead'),
+        html.Img(src='/assets/img/icono-logi-mayab.png', className='sidebar-logo', alt='Logo'),
         dbc.Nav(
             [
                 dbc.NavLink(
@@ -14,7 +12,6 @@ sidebar = html.Div(
                         html.Span('Dashboard')
                     ],
                     href='/dashboard',
-                    active='exact',
                     className='nav-link'
                 ),
                 dbc.NavLink(
@@ -23,7 +20,6 @@ sidebar = html.Div(
                         html.Span('Otra Página')
                     ],
                     href='/otra-pagina',
-                    active='exact',
                     className='nav-link'
                 ),
             ],
