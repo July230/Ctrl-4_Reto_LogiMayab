@@ -46,7 +46,7 @@ python3 app.py
 ```bash
 py app.py
 ```
-Este comando iniciará la aplicación de Dash
+Este comando iniciará la aplicación de Dash en el puerto ```http://localhost:8050/```
 
 ## Licencia
 
