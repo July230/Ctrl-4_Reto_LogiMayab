@@ -62,18 +62,15 @@ dashboard_content = dbc.Container([
 
     dbc.Row([
         dbc.Col([
-            dcc.Dropdown(
-                id='month-filter',
-                placeholder='Filtrar por mes',
-                clearable=True,
-            )
-        ], width=3)
-    ]),
-    
-    dbc.Row([
-        dbc.Col([
             dbc.Card([
                 dbc.CardBody([
+                    html.Div([
+                        dcc.Dropdown(
+                            id='month-filter',
+                            placeholder='Filtrar por mes',
+                            clearable=True,
+                        )
+                    ], id='month-filter-container'),
                     dcc.Graph(id='plot-1', className='dashboard-graph')
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})

@@ -20,6 +20,7 @@ def register_callbacks_dashboard_filters(app):
     '''
     @app.callback(
         Output('month-filter', 'options'),
+        Output('month-filter-container', 'style'),
         Input('stored-data', 'data'),
         prevent_initial_call=False
     )
@@ -41,7 +42,7 @@ def register_callbacks_dashboard_filters(app):
             con 'label' y 'value'.
         '''
         if stored_data is None:
-            return []
+            return [], {'display': 'none'}
 
         df_json = stored_data['df']
         df = pd.read_json(io.StringIO(df_json), orient='records')
@@ -58,7 +59,9 @@ def register_callbacks_dashboard_filters(app):
             9: "Septiembre", 10: "Octubre", 11: "Noviembre", 12: "Diciembre"
         }
 
-        return [
+        options = [
             {'label': meses_es[m], 'value': m}
             for m in meses_num
         ]
+
+        return options, {'display': 'block'}
