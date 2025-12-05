@@ -9,8 +9,6 @@ import pandas as pd
 
 def plot_costs(df):
     '''
-    
-
                     
     '''
     fig=px.bar(df, x='Nombre_Cliente', y='CV_Mensual')
