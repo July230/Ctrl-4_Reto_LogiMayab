@@ -29,9 +29,10 @@ def register_callbacks_dashboard_plots(app):
         Output('plot-2', 'figure'),
         Output('plot-3', 'figure'),
         Input('stored-data', 'data'),
+        Input('month-filter', 'value'),
         prevent_initial_call=False
     )
-    def update_plots(stored_data):
+    def update_plots(stored_data, selected_month):
         '''
         Genera y actualiza la figura principal del dashboard a partir de los datos cargados.
 
@@ -76,7 +77,7 @@ def register_callbacks_dashboard_plots(app):
             color_palette = get_palette('NARANJA_TRIADA_ASCENDENTE')
 
             # Llamar a la función que genera la gráfica de las top 10 rutas más frecuentes
-            fig1 = plot_trips_per_truck(df, color_palette)
+            fig1 = plot_trips_per_truck(df, selected_month, color_palette)
             fig2 = plot_volatile_routes(df, color_palette)
             fig3 = plot_volatile_routes(df, color_palette)
 
