@@ -6,6 +6,9 @@ from config.color_palettes import get_palette
 from utils.empty_fig import empty_fig
 from .dashboard_plots.plot_trips_trucks import plot_trips_per_truck
 from .dashboard_plots.volatile_routes import plot_volatile_routes
+from .dashboard_plots.costs import plot_costs
+from utils.path_utils import get_data_path  # <--- importar la herramienta
+
 
 def register_callbacks_dashboard_plots(app):
     '''
@@ -70,6 +73,9 @@ def register_callbacks_dashboard_plots(app):
             # Usar io.StringIO para evitar deprecation warning al leer JSON
             df = pd.read_json(io.StringIO(df_json), orient='records')
 
+            file_path = get_data_path('df_filtered_cv_por_cliente_mes.csv')
+            df_archivo = pd.read_csv(file_path)
+
             # Reconvertir columnas de fecha que se perdieron al serializar a JSON
             df['Fecha'] = pd.to_datetime(df['Fecha'],format='mixed',dayfirst=False)
 
@@ -79,7 +85,7 @@ def register_callbacks_dashboard_plots(app):
             # Llamar a la función que genera la gráfica de las top 10 rutas más frecuentes
             fig1 = plot_trips_per_truck(df, selected_month, color_palette)
             fig2 = plot_volatile_routes(df, color_palette)
-            fig3 = plot_volatile_routes(df, color_palette)
+            fig3 = plot_costs(df_archivo)
 
             return fig1, fig2, fig3
 
