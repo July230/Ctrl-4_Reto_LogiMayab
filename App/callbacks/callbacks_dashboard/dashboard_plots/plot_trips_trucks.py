@@ -41,6 +41,9 @@ def plot_trips_per_truck(df, selected_month=None, color_palette=None):
         color='Tractocamión',
         color_discrete_sequence=color_palette if color_palette else None
     )
-    fig.update_layout(showlegend=False)
+    fig.update_layout(
+        xaxis_title='Tractocamión',
+        yaxis_title='Viajes',
+    )
 
     return fig
