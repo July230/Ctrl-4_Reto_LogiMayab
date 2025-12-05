@@ -15,7 +15,7 @@ app.layout = dbc.Container([
     dcc.Store(id='stored-data', storage_type='memory'), # Almacena datos cargados
     dcc.Location(id='url', refresh=False), # Componente para manejar la URL
     sidebar,
-    html.Div(id='page-content', style={'margin-left': '20rem', 'padding': '2rem'})
+    html.Div(id='page-content', className='page-content')
 ], fluid=True)
 
 register_callbacks_all(app)
