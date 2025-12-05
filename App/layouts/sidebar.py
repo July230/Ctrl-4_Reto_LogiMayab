@@ -16,10 +16,10 @@ sidebar = html.Div(
                 ),
                 dbc.NavLink(
                     [
-                        html.I(className='bi bi-file-earmark', style={'margin-right': '0.5rem'}),
-                        html.Span('Otra Página')
+                        html.I(className='bi bi-truck', style={'margin-right': '0.5rem'}),
+                        html.Span('Rutas')
                     ],
-                    href='/otra-pagina',
+                    href='/rutas',
                     className='nav-link'
                 ),
             ],

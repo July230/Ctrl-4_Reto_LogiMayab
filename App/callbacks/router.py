@@ -1,6 +1,7 @@
 from dash import html
 from dash.dependencies import Input, Output
 from layouts.dashboard import dashboard_content
+from layouts.routes import routes_content
 
 
 def register_callbacks_router(app):
@@ -40,9 +41,6 @@ def register_callbacks_router(app):
         '''
         if not pathname or pathname == '/' or pathname == '/dashboard':
             return dashboard_content
-        if pathname == '/otra-pagina':
-            return html.Div([
-                html.H1('Otra página', style={'textAlign': 'center'}),
-                html.P('Contenido de ejemplo para otra página')
-            ])
+        if pathname == '/rutas':
+            return routes_content
         return html.H1('404: Página no encontrada', style={'color': 'red'})
