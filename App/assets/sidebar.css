@@ -2,7 +2,7 @@
 .sidebar {
   width: 4rem;
   padding: 1rem 0.5rem;
-  background-color: #f8f9fa;
+  background-color: #2e3242;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -25,6 +25,7 @@
   max-height: 0;
   margin: 0;
   transition: opacity 0.12s ease-in-out, max-height 0.12s ease-in-out;
+  color: #ffffff;
 }
 
 .sidebar:hover .sidebar-title,
@@ -43,18 +44,36 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #495057;
+  color: #ffffff;
   text-decoration: none;
+  background-color: transparent; /* los botones por defecto heredan fondo del sidebar */
+  border-radius: 0.25rem;
 }
 
-.sidebar .nav-link:hover {
-  color: #0d6efd;
+/* Botón por defecto (cuando se muestran explícitamente) */
+.sidebar .nav-link.btn-default {
+  background-color: #2e3242; /* color por defecto solicitado */
+  color: #ffffff;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.btn-default:hover {
+  background-color: #667a8a; /* color al pasar el cursor */
+  color: #ffffff;
+}
+
+/* Mantener color cuando la ruta está activa */
+.sidebar .nav-link.active,
+.sidebar .nav-link.active:focus {
+  background-color: #667a8a;
+  color: #ffffff;
 }
 
 .sidebar .nav-link i {
   min-width: 1.5rem;
   text-align: center;
   transition: margin-right 0.18s ease-in-out;
+  color: #ffffff;
 }
 
 /* When sidebar expands, show span text with space */

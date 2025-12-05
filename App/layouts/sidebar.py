@@ -14,7 +14,6 @@ sidebar = html.Div(
                         html.Span('Dashboard')
                     ],
                     href='/dashboard',
-                    active='exact',
                     className='nav-link'
                 ),
                 dbc.NavLink(
@@ -23,7 +22,6 @@ sidebar = html.Div(
                         html.Span('Otra Página')
                     ],
                     href='/otra-pagina',
-                    active='exact',
                     className='nav-link'
                 ),
             ],
