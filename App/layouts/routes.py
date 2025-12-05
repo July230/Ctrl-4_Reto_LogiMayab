@@ -8,4 +8,14 @@ routes_content = dbc.Container([
             html.P('Contenido para la página de rutas')
         ])
     ]),
+
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    dcc.Graph(id='plot-routes-1', className='dashboard-graph')
+                ])
+            ], className='shadow-sm mb-3', style={'minHeight': '300px'})
+        ], width=6),
+    ]),
 ])
