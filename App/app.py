@@ -7,6 +7,8 @@ app = Dash(__name__,
            external_stylesheets=[
                dbc.themes.BOOTSTRAP,
                dbc.icons.BOOTSTRAP,
+               'https://fonts.googleapis.com/css?family=MuseoModerno',
+               'assets/custom.css',
            ],
            suppress_callback_exceptions=True) # Permite callbacks en páginas no cargadas
 
