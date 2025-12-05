@@ -2,6 +2,11 @@ numpy
 pandas
 base64
 io
+scipy
 dash
 dash-bootstrap-components
 plotly
+statsmodels
+pmdarima
+prophet
+skelearn
