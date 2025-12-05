@@ -29,9 +29,8 @@ def plot_trips_per_truck(df, color_palette=None):
 
     fig = px.bar(
         top_10_trips_per_trucks,
-        x='Frecuencia',
-        y='Tractocamión',
-        orientation='h',
+        x='Tractocamión',
+        y='Frecuencia',
         title='Cantidad de viajes por tracto',
         color='Tractocamión',
         color_discrete_sequence=color_palette if color_palette else None
