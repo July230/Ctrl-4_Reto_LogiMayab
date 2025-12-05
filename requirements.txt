@@ -1,0 +1,7 @@
+numpy
+pandas
+base64
+io
+dash
+dash-bootstrap-components
+plotly
