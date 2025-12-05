@@ -9,4 +9,4 @@ plotly
 statsmodels
 pmdarima
 prophet
-skelearn
+sklearn
