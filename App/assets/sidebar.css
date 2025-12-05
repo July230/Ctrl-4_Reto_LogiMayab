@@ -17,9 +17,8 @@
   width: 18rem;
 }
 
-/* Hide title and lead text when collapsed; show when hovered */
+/* Hide title and lead text when collapsed; show when hovered. Keep logo visible at all times */
 .sidebar .sidebar-title,
-.sidebar .sidebar-logo,
 .sidebar .lead,
 .sidebar hr {
   opacity: 0;
@@ -30,7 +29,6 @@
 }
 
 .sidebar:hover .sidebar-title,
-.sidebar:hover .sidebar-logo,
 .sidebar:hover .lead,
 .sidebar:hover hr {
   opacity: 1;
@@ -40,11 +38,13 @@
 
 /* Logo sizing */
 .sidebar .sidebar-logo {
-  width: 35px;
+  width: 30px;
   height: auto;
   display: block;
-  margin: 0 auto;
-  align-items: left;
+  margin: 0; /* remove automatic centering */
+  margin-left: 0.5rem; /* small gap from left edge */
+  margin-bottom: 0.5rem;
+  align-self: center; /* vertically center within the sidebar */
 }
 
 /* Nav links styling */
