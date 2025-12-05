@@ -93,9 +93,12 @@ dashboard_content = dbc.Container([
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width=6),
-        #dbc.Col([
-            # Placeholder for a fourth plot to complete a 2x2 grid. Add a callback for 'plot-4' when available.
-        #    dcc.Graph(id='plot-4', className='dashboard-graph')
-        #], width=6)
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    dcc.Graph(id='plot-4', className='dashboard-graph')
+                ])
+            ], className='shadow-sm mb-3', style={'minHeight': '300px'})
+        ], width=6),
     ])
 ])

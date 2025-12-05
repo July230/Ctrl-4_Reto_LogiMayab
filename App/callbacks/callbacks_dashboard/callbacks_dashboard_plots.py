@@ -7,7 +7,8 @@ from utils.empty_fig import empty_fig
 from .dashboard_plots.plot_trips_trucks import plot_trips_per_truck
 from .dashboard_plots.volatile_routes import plot_volatile_routes
 from .dashboard_plots.costs import plot_costs
-from utils.path_utils import get_data_path  # <--- importar la herramienta
+from .dashboard_plots.plot_cv_buffer import plot_cv_buffer
+from utils.path_utils import get_data_path 
 
 
 def register_callbacks_dashboard_plots(app):
@@ -31,6 +32,7 @@ def register_callbacks_dashboard_plots(app):
         Output('plot-1', 'figure'),
         Output('plot-2', 'figure'),
         Output('plot-3', 'figure'),
+        Output('plot-4', 'figure'),
         Input('stored-data', 'data'),
         Input('month-filter', 'value'),
         prevent_initial_call=False
@@ -63,6 +65,7 @@ def register_callbacks_dashboard_plots(app):
             return (
                 empty_fig('Sube un archivo para generar la gráfica.'),
                 empty_fig('Sube un archivo para generar la gráfica.'),
+                empty_fig('Sube un archivo para generar la gráfica.'),
                 empty_fig('Sube un archivo para generar la gráfica.')
             )
 
@@ -76,6 +79,9 @@ def register_callbacks_dashboard_plots(app):
             file_path = get_data_path('df_filtered_cv_por_cliente_mes.csv')
             df_archivo = pd.read_csv(file_path)
 
+            file_path = get_data_path('df_melted.csv')
+            df_melted = pd.read_csv(file_path)
+
             # Reconvertir columnas de fecha que se perdieron al serializar a JSON
             df['Fecha'] = pd.to_datetime(df['Fecha'],format='mixed',dayfirst=False)
 
@@ -86,10 +92,11 @@ def register_callbacks_dashboard_plots(app):
             fig1 = plot_trips_per_truck(df, selected_month, color_palette)
             fig2 = plot_volatile_routes(df, color_palette)
             fig3 = plot_costs(df_archivo)
+            fig4 = plot_cv_buffer(df_melted)
 
-            return fig1, fig2, fig3
+            return fig1, fig2, fig3, fig4
 
         except Exception as e:
             # Devuelve una figura con el mensaje de error para no romper el componente Graph
             fig_error = empty_fig(f'Error al generar la gráfica: {e}')
-            return fig_error, fig_error, fig_error
+            return fig_error, fig_error, fig_error, fig_error
