@@ -118,6 +118,24 @@ NARANJA_TRIADA_ASCENDENTE = [
     '#5e2cfd'
 ]
 
+NARANJA_COMPEMENTARIA = [
+    '#fd5e2c', 
+    '#2ccbfd',
+]
+
+AZUL_OSCURO_TRIADA_ASCENDENTE = [
+    '#2e3242', 
+    '#353040', 
+    '#3a2f3d', 
+    '#3f2e39', 
+    '#412e34', 
+    '#442f2f', 
+    '#46322a', 
+    '#433726', 
+    '#3c3d27', 
+    '#32422e'
+]
+
 def get_palette(name: str = 'DEFAULT'):
     '''
     Retorna una paleta de colores por nombre.

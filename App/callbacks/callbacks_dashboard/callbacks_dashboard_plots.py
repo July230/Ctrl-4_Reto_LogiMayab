@@ -89,12 +89,15 @@ def register_callbacks_dashboard_plots(app):
             color_palette = get_palette('NARANJA_TRIADA_ASCENDENTE')
             color_palette_1 = get_palette('DARK')
             color_palette_2 = get_palette('PROFESSIONAL')
+            color_palette_3 = get_palette('AZUL_OSCURO_TRIADA_ASCENDENTE')
+            color_palette_4 = get_palette('NARANJA_COMPEMENTARIA')
+            color_logimayab = get_palette('LOGIMAYAB')
 
             # Llamar a la función que genera la gráfica de las top 10 rutas más frecuentes
-            fig1 = plot_trips_per_truck(df, selected_month, color_palette)
-            fig2 = plot_volatile_routes(df, color_palette)
-            fig3 = plot_client_cv(df_archivo, color_palette_2)
-            fig4 = plot_cv_buffer(df_melted, color_palette_1)
+            fig1 = plot_trips_per_truck(df, selected_month, color_palette_1)
+            fig2 = plot_volatile_routes(df, color_palette_2)
+            fig3 = plot_client_cv(df_archivo, color_palette_1)
+            fig4 = plot_cv_buffer(df_melted, color_palette_4)
 
             return fig1, fig2, fig3, fig4
 

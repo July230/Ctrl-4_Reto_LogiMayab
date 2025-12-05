@@ -12,11 +12,12 @@ def plot_client_cv(df, color_palette=None):
     '''
     
     fig=px.bar(df, 
-               x='Nombre_Cliente', 
-               y='CV_Mensual',
-               title='Coeficiente de Variación Mensual para Clientes Seleccionados',
-               color_discrete_sequence=color_palette if color_palette else None
-               )
+        x='Nombre_Cliente', 
+        y='CV_Mensual',
+        title='Coeficiente de Variación Mensual para Clientes Seleccionados',
+        color='Nombre_Cliente',
+        color_discrete_sequence=color_palette if color_palette else None
+    )
     fig.update_layout(
         xaxis_title='Cliente',
         yaxis_title='Coeficiente de Variación Mensual', 
