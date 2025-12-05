@@ -28,7 +28,7 @@ def register_callbacks_routes_plots(app):
         Input('stored-data', 'data'),
         prevent_initial_call=False
     )
-    def update_routes_plots(df_json):
+    def update_routes_plots(stored_data):
         '''
         Genera y actualiza la figura principal del dashboard a partir de los datos cargados.
 
@@ -39,7 +39,7 @@ def register_callbacks_routes_plots(app):
 
         Parameters
         ----------
-        df_json : JSON or None
+        stored_data : JSON or None
             Datos previamente almacenados como JSON en memoria por dcc.Store.
             Deben representar un DataFrame serializado en formato records.
             Si es None, no se genera ningún gráfico.
@@ -52,11 +52,14 @@ def register_callbacks_routes_plots(app):
             
         '''
         # Si no hay datos cargados, retorna una figura vacía con mensaje
-        if df_json is None:
+        if stored_data is None:
             print("No hay datos cargados.")
             return empty_fig('Sube un archivo para generar la gráfica.')
 
         try:
+            # Extraer el JSON del DataFrame desde el dict
+            df_json = stored_data['df']
+
             # Usar io.StringIO para evitar deprecation warning al leer JSON
             df = pd.read_json(io.StringIO(df_json), orient='records')
 

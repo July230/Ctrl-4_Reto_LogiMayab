@@ -3,6 +3,7 @@ from dash.exceptions import PreventUpdate
 from utils.file_loader import load_upload_file
 import pandas as pd
 import numpy as np
+import json
 
 def register_callbacks_dashboard_loader(app):
     '''
@@ -86,7 +87,9 @@ def register_callbacks_dashboard_loader(app):
             success_style = default_style.copy()
             success_style.update({'backgroundColor': '#2cfd5e', 'color': '#ffffff'})
             # Mostrar mensaje dentro del upload box
-            return stored_data, success_style, 'Archivo cargado (sesión)'
+            return stored_data, success_style, (
+                f'Archivo cargado y limpio: {stored_data["filename"]}, filas: {stored_data["nrows"]}'
+            )
 
         # Si no hay archivo y tampoco había datos previos, pedir archivo
         if not contents:
@@ -154,8 +157,14 @@ def register_callbacks_dashboard_loader(app):
             success_style = default_style.copy()
             success_style.update({'backgroundColor': '#2cfd5e', 'color': '#ffffff'})
 
+            data_serialized = {
+                'df': df_cleaned.to_json(date_format='iso', orient='records'),
+                'filename': filename,
+                'nrows': len(df)
+            }
+
             # Show the file info in the upload box
-            return df_cleaned.to_json(date_format='iso', orient='records'), success_style, f'Archivo cargado: {filename}, filas: {len(df)}'
+            return data_serialized, success_style, f'Archivo cargado y limpio: {filename}, filas: {len(df)}'
 
         except Exception as e:
             error_style = default_style.copy()
