@@ -3,8 +3,7 @@ from dash.exceptions import PreventUpdate
 import pandas as pd
 import io
 from config.color_palettes import get_palette
-from .dashboard_plots.empty_fig import empty_fig
-from .dashboard_plots.plot_routes import plot_frequent_routes
+from utils.empty_fig import empty_fig
 from .dashboard_plots.plot_trips_trucks import plot_trips_per_truck
 from .dashboard_plots.volatile_routes import plot_volatile_routes
 
@@ -74,8 +73,8 @@ def register_callbacks_dashboard_plots(app):
             color_palette = get_palette('NARANJA_TRIADA_ASCENDENTE')
 
             # Llamar a la función que genera la gráfica de las top 10 rutas más frecuentes
-            fig1 = plot_frequent_routes(df, color_palette)
-            fig2 = plot_trips_per_truck(df, color_palette)
+            fig1 = plot_trips_per_truck(df, color_palette)
+            fig2 = plot_volatile_routes(df, color_palette)
             fig3 = plot_volatile_routes(df, color_palette)
 
             return fig1, fig2, fig3

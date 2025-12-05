@@ -2,7 +2,7 @@ from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 import plotly.express as px
 import datetime as dt
-from .empty_fig import empty_fig
+from utils.empty_fig import empty_fig
 
 def plot_volatile_routes(df, color_palette=None):
     '''
