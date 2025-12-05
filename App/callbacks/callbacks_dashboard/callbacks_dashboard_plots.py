@@ -6,7 +6,7 @@ from config.color_palettes import get_palette
 from utils.empty_fig import empty_fig
 from .dashboard_plots.plot_trips_trucks import plot_trips_per_truck
 from .dashboard_plots.volatile_routes import plot_volatile_routes
-from .dashboard_plots.costs import plot_costs
+from .dashboard_plots.client_cv import plot_client_cv
 from .dashboard_plots.plot_cv_buffer import plot_cv_buffer
 from utils.path_utils import get_data_path 
 
@@ -87,12 +87,14 @@ def register_callbacks_dashboard_plots(app):
 
             # Obtener la paleta de colores (se puede cambiar a la que quieras)
             color_palette = get_palette('NARANJA_TRIADA_ASCENDENTE')
+            color_palette_1 = get_palette('DARK')
+            color_palette_2 = get_palette('PROFESSIONAL')
 
             # Llamar a la función que genera la gráfica de las top 10 rutas más frecuentes
             fig1 = plot_trips_per_truck(df, selected_month, color_palette)
             fig2 = plot_volatile_routes(df, color_palette)
-            fig3 = plot_costs(df_archivo)
-            fig4 = plot_cv_buffer(df_melted)
+            fig3 = plot_client_cv(df_archivo, color_palette_2)
+            fig4 = plot_cv_buffer(df_melted, color_palette_1)
 
             return fig1, fig2, fig3, fig4
 
