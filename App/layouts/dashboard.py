@@ -13,20 +13,23 @@ dashboard_content = dbc.Container([
             dcc.Upload(
                 id='upload-data',
                 children=html.Div([
-                    'Arrastra o selecciona un archivo'
+                    html.Div('Arrastra o selecciona un archivo', id='upload-box-content', style={'color': 'gray'})
                 ]),
                 multiple=False,
                 style={
                     'width': '100%',
-                    'height': '60px',
-                    'lineHeight': '60px',
+                    'minHeight': '60px',
                     'borderWidth': '1px',
                     'borderStyle': 'dashed',
-                    'textAlign': 'center'
+                    'textAlign': 'center',
+                    'display': 'flex',
+                    'flexDirection': 'column',
+                    'justifyContent': 'center',
+                    'alignItems': 'center',
+                    'padding': '0.5rem'
                 }
             ),
-            html.Br(),
-            html.Div(id='uploaded-file-info', style={'color': 'gray'})
+            html.Br()
         ], width=12)
     ]),
 
